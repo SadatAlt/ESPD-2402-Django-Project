@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Detail</title>
+</head>
+<body>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <h3>name:</h3>
+        <input type="text" name="name">
+        <br>
+        <h3>image:</h3>
+        <input type="file" name="image">
+        <br>
+        <br>
+        <button type="submit" name="action" value="submit">submit</button>
+
+    </form>
+    {% for i in all_user %}
+    <p>{{i.name}}</p>
+    <br>
+    {% if i.image %}
+    <img src="{{ i.image.url }}" alt="">
+    {% else %}
+    <img src="/static/images/placeholder.jpg" alt="No Image Available">
+    {% endif %}
+    <a href="{% url 'delete' i.id %}"><button type="button">delete</button></a>
+    {% endfor %}
+</body>
+</html>
